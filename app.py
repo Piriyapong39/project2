@@ -8,7 +8,7 @@ client = MongoClient('mongodb+srv://virote3011:kaluiklui3011@cluster0.ivzlivk.mo
 db = client.AEP  # เลือกฐานข้อมูลที่ต้องการใช้งาน
 
 # Route สำหรับดึงข้อมูล seconds_amount ล่าสุดจาก MongoDB และส่งออกเป็น JSON
-@app.route('/seconds_amount', methods=['GET'])
+@app.route('/', methods=['GET'])
 def get_seconds_amount():
     collection = db.scheduler  # เลือกคอลเล็กชันที่ต้องการใช้งาน
     # ดึงข้อมูล seconds_amount ล่าสุด
