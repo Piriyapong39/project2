@@ -9,4 +9,5 @@ def get_seconds_amount():
     latest_data = collection.find_one({}, {'_id': 0, 'seconds_amount': 1}, sort=[('_id', -1)])
     return jsonify(latest_data)
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
+#host='0.0.0.0', port=5000
