@@ -1,16 +1,20 @@
 from flask import Flask, jsonify
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
+
+load_dotenv()
+MONGODB_DATABASE = os.getenv("MONGO_URL")
 app = Flask(__name__)
+client = MongoClient(MONGODB_DATABASE)
+db = client.weather
 
-# เชื่อมต่อ MongoDB
-client = MongoClient('mongodb+srv://virote3011:kaluiklui3011@cluster0.ivzlivk.mongodb.net/?retryWrites=true&w=majority')
-db = client.AEP 
-@app.route('/', methods=['GET'])
-def get_seconds_amount():
-    collection = db.scheduler  # เลือกคอลเล็กชันที่ต้องการใช้งาน
-    latest_data = collection.find_one({}, {'_id': 0, 'seconds_amount': 1}, sort=[('_id', -1)])
-    return jsonify(latest_data)
+@app.route("/", methods=["GET"])
+def dataforesp():
+    collection = db.data
+    lastest_data = collection.find_one({}, {"Temperature": 1,"Humidity": 1,"Status": 1, "HumidityADJ": 1, "_id": 0}, sort=[('_id', -1)])
+    return jsonify(lastest_data)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
